@@ -17,7 +17,7 @@ public class MyFirstProject {
 	public static double area (double l){
 		return l * l;
 	}
-	public static double area (double l, double h){
+	public static double area(double l, double h){
 		return l * h;
 	}
 }
