@@ -5,19 +5,23 @@ public class MyFirstProject {
 		hello ("Any");
 		hello ("Maria");
 
-		double length = 8;
-		double hight = 3;
-		System.out.println("Площадь квадрата со стороной " + length + " = " + area(length));
-		System.out.println("Площадь прямоугольника со сторонами " + length + " и " + hight + " = " + area(length, hight));
+		Square s = new Square(7);
+		//s.l = 8;
+		System.out.println("Площадь квадрата со стороной " + s.l + " = " + area(s));
+
+		Rectangle r = new Rectangle(5, 6);
+    //r.a = 8;
+		//r.b = 3;
+		System.out.println("Площадь прямоугольника со сторонами " + r.a + " и " + r.b + " = " + area(r));
 	}
 	public static void hello (String somebody){
-		System.out.println("Hello " + somebody + "!");
+		System.out.println("Hello, " + somebody + "!");
 
 	}
-	public static double area (double l){
-		return l * l;
+	public static double area (Square s){
+		return s.l * s.l;
 	}
-	public static double area(double l, double h){
-		return l * h;
+	public static double area(Rectangle r){
+		return r.a * r.b;
 	}
 }
