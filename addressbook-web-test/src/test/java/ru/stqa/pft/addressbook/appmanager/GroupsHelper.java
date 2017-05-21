@@ -40,7 +40,7 @@ public class GroupsHelper extends HelperBase {
     click(By.name("edit"));
   }
 
-  public void modificateSelectedGroup() {
+  public void submitGroupModification() {
     click(By.name("update"));
   }
 }
