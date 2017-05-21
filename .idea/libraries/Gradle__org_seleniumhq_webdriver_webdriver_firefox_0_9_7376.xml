@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.seleniumhq.webdriver:webdriver-firefox:0.9.7376">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.seleniumhq.webdriver/webdriver-firefox/0.9.7376/21915ac70f0f50c1e46a63f40710e0c620bd6259/webdriver-firefox-0.9.7376.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.seleniumhq.webdriver/webdriver-firefox/0.9.7376/ce402febe69b3f506be0960027000f2f0f0b86b/webdriver-firefox-0.9.7376-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
