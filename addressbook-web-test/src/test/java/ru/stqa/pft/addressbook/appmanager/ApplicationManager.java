@@ -12,6 +12,7 @@ public class ApplicationManager {
   private SessionHelper sessionHelper;
   private NavigationHelper navigationHelper;
   private GroupsHelper groupsHelper;
+  private ContactsHelper contactsHelper;
 
 
 
@@ -19,6 +20,7 @@ public class ApplicationManager {
     wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
     wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
     wd.get("http://localhost/addressbook/group.php");
+    contactsHelper = new ContactsHelper(wd);
     groupsHelper = new GroupsHelper(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
@@ -36,5 +38,9 @@ public class ApplicationManager {
 
   public NavigationHelper getNavigationHelper() {
     return navigationHelper;
+  }
+
+  public ContactsHelper getContactHelper() {
+    return contactsHelper;
   }
 }
