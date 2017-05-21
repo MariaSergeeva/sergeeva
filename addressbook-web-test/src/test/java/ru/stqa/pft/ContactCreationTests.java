@@ -5,18 +5,10 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
-
 import java.util.concurrent.TimeUnit;
-import java.util.Date;
-import java.io.File;
 
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.*;
-
-import static org.openqa.selenium.OutputType.*;
 
 public class ContactCreationTests {
   FirefoxDriver wd;
@@ -26,23 +18,23 @@ public class ContactCreationTests {
     wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true));
     wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
     wd.get("http://localhost/addressbook/index.php");
-    login();
+    login("admin", "secret");
   }
 
-  private void login() {
+  private void login(String username, String password) {
     wd.findElement(By.name("user")).click();
     wd.findElement(By.name("user")).clear();
-    wd.findElement(By.name("user")).sendKeys("admin");
+    wd.findElement(By.name("user")).sendKeys(username);
     wd.findElement(By.name("pass")).click();
     wd.findElement(By.name("pass")).clear();
-    wd.findElement(By.name("pass")).sendKeys("secret");
+    wd.findElement(By.name("pass")).sendKeys(password);
     wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
   }
 
   @Test
   public void testContactCreation() {
     initContactCreation();
-    fillContactForm();
+    fillContactForm("firstName", "middleName", "lastName", "address", "home", "mobile", "email");
     submitContactCreation();
     goToContactsList();
   }
@@ -55,28 +47,28 @@ public class ContactCreationTests {
     wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
   }
 
-  private void fillContactForm() {
+  private void fillContactForm(String contactFirstName, String contactMiddleName, String contactLastName, String contactAddress, String contactHomeTelephone, String contactMobileTelephone, String contactEmail) {
     wd.findElement(By.name("firstname")).click();
     wd.findElement(By.name("firstname")).clear();
-    wd.findElement(By.name("firstname")).sendKeys("firstName");
+    wd.findElement(By.name("firstname")).sendKeys(contactFirstName);
     wd.findElement(By.name("middlename")).click();
     wd.findElement(By.name("middlename")).clear();
-    wd.findElement(By.name("middlename")).sendKeys("middleName");
+    wd.findElement(By.name("middlename")).sendKeys(contactMiddleName);
     wd.findElement(By.name("lastname")).click();
     wd.findElement(By.name("lastname")).clear();
-    wd.findElement(By.name("lastname")).sendKeys("lastName");
+    wd.findElement(By.name("lastname")).sendKeys(contactLastName);
     wd.findElement(By.name("address")).click();
     wd.findElement(By.name("address")).clear();
-    wd.findElement(By.name("address")).sendKeys("address");
+    wd.findElement(By.name("address")).sendKeys(contactAddress);
     wd.findElement(By.name("home")).click();
     wd.findElement(By.name("home")).clear();
-    wd.findElement(By.name("home")).sendKeys("home");
+    wd.findElement(By.name("home")).sendKeys(contactHomeTelephone);
     wd.findElement(By.name("mobile")).click();
     wd.findElement(By.name("mobile")).clear();
-    wd.findElement(By.name("mobile")).sendKeys("mobile");
+    wd.findElement(By.name("mobile")).sendKeys(contactMobileTelephone);
     wd.findElement(By.name("email")).click();
     wd.findElement(By.name("email")).clear();
-    wd.findElement(By.name("email")).sendKeys("email");
+    wd.findElement(By.name("email")).sendKeys(contactEmail);
   }
 
   private void initContactCreation() {
