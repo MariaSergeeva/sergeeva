@@ -1,4 +1,4 @@
-package ru.stqa.pft;
+package ru.stqa.pft.addressbook;
 
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.BeforeMethod;

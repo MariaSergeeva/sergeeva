@@ -1,4 +1,4 @@
-package ru.stqa.pft;
+package ru.stqa.pft.addressbook;
 
 public class GroupData {
   private final String groupName;
