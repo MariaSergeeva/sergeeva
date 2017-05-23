@@ -1,11 +1,10 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 public class ContactCreationTests extends TestBase{
-  FirefoxDriver wd;
+
 
 
   @Test
