@@ -9,4 +9,5 @@ dependencies {
     compile 'org.seleniumhq.selenium:selenium-java:3.4.0'
     compile 'org.seleniumhq.selenium:selenium-firefox-driver:3.4.0'
     compile 'org.seleniumhq.webdriver:webdriver-firefox:0.9.7376'
+
 }
