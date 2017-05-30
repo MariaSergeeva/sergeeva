@@ -68,7 +68,10 @@ public class ContactsHelper extends HelperBase {
     }
 
     public void createContact(ContactData contact) {
-
+        new NavigationHelper(wd).gotoGroupPage();
+        if (!new GroupsHelper(wd).isThereAGroup()) {
+            new GroupsHelper(wd).createGroup(new GroupData("name", null, null));
+        }
         initContactCreation();
         fillContactForm(contact, true);
         submitContactCreation();

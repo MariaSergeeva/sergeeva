@@ -8,9 +8,6 @@ public class ContactModificationTests extends TestBase {
 
     @Test
     public void testContactModification() {
-        if (!app.getGroupsHelper().isThereAGroup()){
-            app.getGroupsHelper().createGroup(new GroupData("name", null, null));
-        }
         app.getNavigationHelper().goToContactsList();
         if (!app.getContactHelper().isThereAContact()){
             app.getContactHelper().createContact(new ContactData("firstName", "middleName", "lastName", "address", "home", "mobile", "email", "name"));
