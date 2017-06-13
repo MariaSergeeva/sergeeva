@@ -52,4 +52,31 @@ public class ContactData {
     public String getContactGroup() {
         return contactGroup;
     }
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "contactFirstName='" + contactFirstName + '\'' +
+                ", contactLastName='" + contactLastName + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ContactData that = (ContactData) o;
+
+        if (contactFirstName != null ? !contactFirstName.equals(that.contactFirstName) : that.contactFirstName != null)
+            return false;
+        return contactLastName != null ? contactLastName.equals(that.contactLastName) : that.contactLastName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = contactFirstName != null ? contactFirstName.hashCode() : 0;
+        result = 31 * result + (contactLastName != null ? contactLastName.hashCode() : 0);
+        return result;
+    }
 }
