@@ -19,7 +19,7 @@ public class ContactModificationTests extends TestBase {
         }
         List<ContactData> before = app.getContactHelper().getContactList();
 
-        String locator = "edit.php?id=" + before.get(before.size()-1).getContactId();
+        String locator = "//a[@href='edit.php?id=" + before.get(before.size()-1).getContactId() + "']/img";
         app.getContactHelper().initContactModification(locator);
         ContactData contact = new ContactData(before.get(before.size()-1).getContactId(), null, null, null, null, null, null, RandomStringUtils.randomAlphabetic(10), null);
         app.getContactHelper().fillContactForm(contact, false);

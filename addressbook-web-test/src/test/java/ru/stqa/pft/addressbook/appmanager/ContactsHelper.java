@@ -60,9 +60,7 @@ public class ContactsHelper extends HelperBase {
     }
 
     public void initContactModification(String locator) {
-        //click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
-        String way = "//a[@href='" + locator + "']/img";
-        click(By.xpath(way));
+        click(By.xpath(locator));
     }
 
     public void submitContactModification() {
