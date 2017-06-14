@@ -21,14 +21,14 @@ public class ContactModificationTests extends TestBase {
 
         String locator = "edit.php?id=" + before.get(before.size()-1).getContactId();
         app.getContactHelper().initContactModification(locator);
-        ContactData testContact = new ContactData(before.get(before.size()-1).getContactId(), null, null, null, null, null, null, RandomStringUtils.randomAlphabetic(10), null);
-        app.getContactHelper().fillContactForm(testContact, false);
+        ContactData contact = new ContactData(before.get(before.size()-1).getContactId(), null, null, null, null, null, null, RandomStringUtils.randomAlphabetic(10), null);
+        app.getContactHelper().fillContactForm(contact, false);
         app.getContactHelper().submitContactModification();
         app.getContactHelper().goToHomePage();
         List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size());
         before.remove(before.size() - 1);
-        before.add(testContact);
+        before.add(contact);
         Assert.assertEquals(new HashSet<>(before), new HashSet<>(after));
     }
 }

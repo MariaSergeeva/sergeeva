@@ -1,7 +1,7 @@
 package ru.stqa.pft.addressbook.model;
 
 public class ContactData {
-    private final String contactId;
+    private int contactId;
     private final String contactFirstName;
     private final String contactMiddleName;
     private final String contactLastName;
@@ -12,7 +12,7 @@ public class ContactData {
     private final String contactGroup;
 
     public ContactData(String contactFirstName, String contactMiddleName, String contactLastName, String contactAddress, String contactHomeTelephone, String contactMobileTelephone, String contactEmail, String contactGroup) {
-        this.contactId = null;
+        this.contactId = 0;
         this.contactFirstName = contactFirstName;
         this.contactMiddleName = contactMiddleName;
         this.contactLastName = contactLastName;
@@ -23,7 +23,7 @@ public class ContactData {
         this.contactGroup = contactGroup;
     }
 
-    public ContactData(String contactId, String contactFirstName, String contactMiddleName, String contactLastName, String contactAddress, String contactHomeTelephone, String contactMobileTelephone, String contactEmail, String contactGroup) {
+    public ContactData(int contactId, String contactFirstName, String contactMiddleName, String contactLastName, String contactAddress, String contactHomeTelephone, String contactMobileTelephone, String contactEmail, String contactGroup) {
         this.contactId = contactId;
         this.contactFirstName = contactFirstName;
         this.contactMiddleName = contactMiddleName;
@@ -35,7 +35,7 @@ public class ContactData {
         this.contactGroup = contactGroup;
     }
 
-    public String getContactId() {
+    public int getContactId() {
         return contactId;
     }
 
@@ -86,14 +86,18 @@ public class ContactData {
 
         ContactData that = (ContactData) o;
 
-        if (contactId != null ? !contactId.equals(that.contactId) : that.contactId != null) return false;
+        if (contactId != that.contactId) return false;
         return contactEmail != null ? contactEmail.equals(that.contactEmail) : that.contactEmail == null;
     }
 
     @Override
     public int hashCode() {
-        int result = contactId != null ? contactId.hashCode() : 0;
+        int result = contactId;
         result = 31 * result + (contactEmail != null ? contactEmail.hashCode() : 0);
         return result;
+    }
+
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
     }
 }
