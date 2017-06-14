@@ -71,10 +71,16 @@ public class ContactData {
         return contactGroup;
     }
 
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
+    }
+
     @Override
     public String toString() {
         return "ContactData{" +
-                "contactId='" + contactId + '\'' +
+                "contactId=" + contactId +
+                ", contactFirstName='" + contactFirstName + '\'' +
+                ", contactLastName='" + contactLastName + '\'' +
                 ", contactEmail='" + contactEmail + '\'' +
                 '}';
     }
@@ -87,17 +93,19 @@ public class ContactData {
         ContactData that = (ContactData) o;
 
         if (contactId != that.contactId) return false;
+        if (contactFirstName != null ? !contactFirstName.equals(that.contactFirstName) : that.contactFirstName != null)
+            return false;
+        if (contactLastName != null ? !contactLastName.equals(that.contactLastName) : that.contactLastName != null)
+            return false;
         return contactEmail != null ? contactEmail.equals(that.contactEmail) : that.contactEmail == null;
     }
 
     @Override
     public int hashCode() {
         int result = contactId;
+        result = 31 * result + (contactFirstName != null ? contactFirstName.hashCode() : 0);
+        result = 31 * result + (contactLastName != null ? contactLastName.hashCode() : 0);
         result = 31 * result + (contactEmail != null ? contactEmail.hashCode() : 0);
         return result;
-    }
-
-    public void setContactId(int contactId) {
-        this.contactId = contactId;
     }
 }
