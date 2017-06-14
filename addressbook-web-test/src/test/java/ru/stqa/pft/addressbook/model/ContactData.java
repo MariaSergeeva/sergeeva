@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.model;
 
 public class ContactData {
+    private final String contactId;
     private final String contactFirstName;
     private final String contactMiddleName;
     private final String contactLastName;
@@ -11,6 +12,7 @@ public class ContactData {
     private final String contactGroup;
 
     public ContactData(String contactFirstName, String contactMiddleName, String contactLastName, String contactAddress, String contactHomeTelephone, String contactMobileTelephone, String contactEmail, String contactGroup) {
+        this.contactId = null;
         this.contactFirstName = contactFirstName;
         this.contactMiddleName = contactMiddleName;
         this.contactLastName = contactLastName;
@@ -19,6 +21,22 @@ public class ContactData {
         this.contactMobileTelephone = contactMobileTelephone;
         this.contactEmail = contactEmail;
         this.contactGroup = contactGroup;
+    }
+
+    public ContactData(String contactId, String contactFirstName, String contactMiddleName, String contactLastName, String contactAddress, String contactHomeTelephone, String contactMobileTelephone, String contactEmail, String contactGroup) {
+        this.contactId = contactId;
+        this.contactFirstName = contactFirstName;
+        this.contactMiddleName = contactMiddleName;
+        this.contactLastName = contactLastName;
+        this.contactAddress = contactAddress;
+        this.contactHomeTelephone = contactHomeTelephone;
+        this.contactMobileTelephone = contactMobileTelephone;
+        this.contactEmail = contactEmail;
+        this.contactGroup = contactGroup;
+    }
+
+    public String getContactId() {
+        return contactId;
     }
 
     public String getContactMiddleName() {
@@ -56,8 +74,7 @@ public class ContactData {
     @Override
     public String toString() {
         return "ContactData{" +
-                "contactFirstName='" + contactFirstName + '\'' +
-                ", contactLastName='" + contactLastName + '\'' +
+                "contactId='" + contactId + '\'' +
                 ", contactEmail='" + contactEmail + '\'' +
                 '}';
     }
@@ -69,17 +86,13 @@ public class ContactData {
 
         ContactData that = (ContactData) o;
 
-        if (contactFirstName != null ? !contactFirstName.equals(that.contactFirstName) : that.contactFirstName != null)
-            return false;
-        if (contactLastName != null ? !contactLastName.equals(that.contactLastName) : that.contactLastName != null)
-            return false;
+        if (contactId != null ? !contactId.equals(that.contactId) : that.contactId != null) return false;
         return contactEmail != null ? contactEmail.equals(that.contactEmail) : that.contactEmail == null;
     }
 
     @Override
     public int hashCode() {
-        int result = contactFirstName != null ? contactFirstName.hashCode() : 0;
-        result = 31 * result + (contactLastName != null ? contactLastName.hashCode() : 0);
+        int result = contactId != null ? contactId.hashCode() : 0;
         result = 31 * result + (contactEmail != null ? contactEmail.hashCode() : 0);
         return result;
     }
