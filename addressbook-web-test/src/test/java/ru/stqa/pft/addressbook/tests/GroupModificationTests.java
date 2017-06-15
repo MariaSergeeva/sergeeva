@@ -13,13 +13,13 @@ public class GroupModificationTests extends TestBase {
   @Test
   public void testGroupModification() {
     app.getNavigationHelper().gotoGroupPage();
-    if (!app.getGroupsHelper().isThereAGroup()){
+    if (!app.getGroupsHelper().isThereAGroup()) {
       app.getGroupsHelper().createGroup(new GroupData("name", null, null));
     }
     List<GroupData> before = app.getGroupsHelper().getGroupList();
     app.getGroupsHelper().selectGroup(before.size() - 1);
     app.getGroupsHelper().initGroupModification();
-    GroupData group = new GroupData(before.get(before.size()-1).getGroupId(), "name1", "header1", "footer1");
+    GroupData group = new GroupData(before.get(before.size() - 1).getGroupId(), "name1", "header1", "footer1");
     app.getGroupsHelper().fillGroupForm(group);
     app.getGroupsHelper().submitGroupModification();
     app.getGroupsHelper().returnToGroupPage();
@@ -33,5 +33,5 @@ public class GroupModificationTests extends TestBase {
     before.sort(byId);
     after.sort(byId);
     Assert.assertEquals(before, after);
-      }
+  }
 }

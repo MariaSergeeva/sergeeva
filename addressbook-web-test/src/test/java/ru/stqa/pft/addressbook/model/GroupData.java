@@ -14,6 +14,7 @@ public class GroupData {
     this.groupHeader = groupHeader;
     this.groupFooter = groupFooter;
   }
+
   public GroupData(int groupId1, String groupName, String groupHeader, String groupFooter) {
     this.groupId = groupId1;
     this.groupName = groupName;
@@ -32,6 +33,7 @@ public class GroupData {
   public String getGroupFooter() {
     return groupFooter;
   }
+
   public int getGroupId() {
     return groupId;
   }
@@ -61,6 +63,7 @@ public class GroupData {
     result = 31 * result + (groupName != null ? groupName.hashCode() : 0);
     return result;
   }
+
   public void setGroupId(int groupId) {
     this.groupId = groupId;
   }
