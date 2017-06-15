@@ -49,7 +49,7 @@ public class ContactsHelper extends HelperBase {
     new NavigationHelper(wd).GroupPage();
     String groupName;
     if (new GroupsHelper(wd).list().size() == 0) {
-      GroupData group = new GroupData(RandomStringUtils.randomAlphabetic(10), null, null);
+      GroupData group = new GroupData().withName(RandomStringUtils.randomAlphabetic(10));
       new GroupsHelper(wd).create(group);
       groupName = group.name();
     } else {

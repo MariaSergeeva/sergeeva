@@ -14,12 +14,12 @@ public class GroupCreationTests extends TestBase {
   public void testGroupCreation() {
     app.goTo().GroupPage();
     List<GroupData> before = app.Group().list();
-    GroupData group = new GroupData(RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic(10));
+    GroupData group = new GroupData().withName(RandomStringUtils.randomAlphabetic(10)).withFooter(RandomStringUtils.randomAlphabetic(10)).withHeader(RandomStringUtils.randomAlphabetic(10));
     app.Group().create(group);
     List<GroupData> after = app.Group().list();
     Assert.assertEquals(after.size(), before.size() + 1);
 
-    group.setGroupId(after.stream().max((o1, o2) -> Integer.compare(o1.id(), o2.id())).get().id());
+    group.withId(after.stream().max((o1, o2) -> Integer.compare(o1.id(), o2.id())).get().id());
     before.add(group);
 
     Comparator<? super GroupData> byId = ((o1, o2) -> Integer.compare(o1.id(), o2.id()));
