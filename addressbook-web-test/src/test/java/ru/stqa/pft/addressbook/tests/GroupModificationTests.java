@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -13,7 +14,7 @@ public class GroupModificationTests extends TestBase {
   public void ensurePreconditions() {
     app.goTo().GroupPage();
     if (app.Group().list().size() == 0) {
-      app.Group().create(new GroupData("name", null, null));
+      app.Group().create(new GroupData(RandomStringUtils.randomAlphabetic(10), null, null));
     }
   }
 
@@ -22,7 +23,7 @@ public class GroupModificationTests extends TestBase {
 
     List<GroupData> before = app.Group().list();
     int index = before.size() - 1;
-    GroupData group = new GroupData(before.get(index).id(), "name1", "header1", "footer1");
+    GroupData group = new GroupData(before.get(index).id(), RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic(10));
     app.Group().modify(index, group);
     List<GroupData> after = app.Group().list();
     Assert.assertEquals(after.size(), before.size());

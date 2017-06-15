@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -13,7 +14,7 @@ public class GroupCreationTests extends TestBase {
   public void testGroupCreation() {
     app.goTo().GroupPage();
     List<GroupData> before = app.Group().list();
-    GroupData group = new GroupData("name", "header", "footer");
+    GroupData group = new GroupData(RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic(10));
     app.Group().create(group);
     List<GroupData> after = app.Group().list();
     Assert.assertEquals(after.size(), before.size() + 1);

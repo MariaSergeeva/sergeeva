@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -12,7 +13,7 @@ public class GroupDeletionTests extends TestBase {
   public void ensurePreconditions() {
     app.goTo().GroupPage();
     if (app.Group().list().size() == 0) {
-      app.Group().create(new GroupData("name", null, null));
+      app.Group().create(new GroupData(RandomStringUtils.randomAlphabetic(10), null, null));
     }
   }
 
