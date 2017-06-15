@@ -5,27 +5,28 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class GroupDeletionTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions() {
     app.goTo().GroupPage();
-    if (app.Group().all().size() == 0) {
-      app.Group().create(new GroupData().withName(RandomStringUtils.randomAlphabetic(10)));
+    if (app.group().all().size() == 0) {
+      app.group().create(new GroupData().withName(RandomStringUtils.randomAlphabetic(10)));
     }
   }
 
   @Test
   public void testGroupDeletion() {
-    Set<GroupData> before = app.Group().all();
+    Groups before = app.group().all();
     GroupData deletedGroup = before.iterator().next();
-    app.Group().delete(deletedGroup);
-    Set<GroupData> after = app.Group().all();
-    Assert.assertEquals(after.size(), before.size() - 1);
-
-    before.remove(deletedGroup);
-    Assert.assertEquals(after, before);
+    app.group().delete(deletedGroup);
+    Groups after = app.group().all();
+    assertEquals(after.size(), before.size() - 1);
+    assertThat(after, equalTo(before.without(deletedGroup)));
   }
 }

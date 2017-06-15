@@ -4,23 +4,23 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class GroupCreationTests extends TestBase {
 
   @Test
   public void testGroupCreation() {
     app.goTo().GroupPage();
-    Set<GroupData> before = app.Group().all();
+    Groups before = app.group().all();
     GroupData group = new GroupData().withName(RandomStringUtils.randomAlphabetic(10)).withFooter(RandomStringUtils.randomAlphabetic(10)).withHeader(RandomStringUtils.randomAlphabetic(10));
-    app.Group().create(group);
-    Set<GroupData> after = app.Group().all();
-    Assert.assertEquals(after.size(), before.size() + 1);
-
-    group.withId(after.stream().mapToInt((g) -> g.id()).max().getAsInt());
-    before.add(group);
-    Assert.assertEquals(before, after);
+    app.group().create(group);
+    Groups after = app.group().all();
+    assertEquals(after.size(), before.size() + 1);
+    assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.id()).max().getAsInt()))));
   }
 
 }
