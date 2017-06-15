@@ -11,7 +11,9 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactsHelper extends HelperBase {
 
@@ -63,17 +65,17 @@ public class ContactsHelper extends HelperBase {
     click(By.xpath("//div[@id='content']/form/input[21]"));
   }
 
-  public void selectContact(int index) {
-    wd.findElements(By.name("selected[]")).get(index).click();
+  public void selectById(int id) {
+    wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
   }
 
-  public void initModification(int index) {
-    String locator = "//tr[./td[./input[@name='selected[]']]][" + index + "]//img[@title='Edit']";
+  public void initModificationById(int id) {
+    String locator = "//tr[./td[./input[@id='"+ id + "']]]//img[@title='Edit']";
     click(By.xpath(locator));
   }
 
-  public void modify(int index, ContactData contact) {
-    initModification(index);
+  public void modify(ContactData contact) {
+    initModificationById(contact.id());
     fillForm(contact, false);
     submitModification();
     goToHomePage();
@@ -91,8 +93,8 @@ public class ContactsHelper extends HelperBase {
     click(By.linkText("home page"));
   }
 
-  public void delete(int index) {
-    selectContact(index);
+  public void deleteById(ContactData contact) {
+    selectById(contact.id());
     click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
     switchAlert();
   }
@@ -101,8 +103,8 @@ public class ContactsHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<ContactData> list() {
-    List<ContactData> contacts = new ArrayList<ContactData>();
+  public Set<ContactData> all() {
+    Set<ContactData> contacts = new HashSet<ContactData>();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[./td[./input[@name='selected[]']]]"));
     int count = 2;
     for (WebElement element : elements) {

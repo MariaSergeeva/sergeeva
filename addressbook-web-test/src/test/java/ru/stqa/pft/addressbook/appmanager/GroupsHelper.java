@@ -77,8 +77,8 @@ public class GroupsHelper extends HelperBase {
     return groups;
   }
 
-  public void delete(GroupData group) {
-    selectById(group.id());
+  public void delete(GroupData deletedGroup) {
+    selectById(deletedGroup.id());
     click(By.name("delete"));
     returnToGroupPage();
   }
