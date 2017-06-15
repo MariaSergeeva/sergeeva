@@ -22,19 +22,19 @@ public class GroupData {
     this.groupFooter = groupFooter;
   }
 
-  public String getGroupName() {
+  public String name() {
     return groupName;
   }
 
-  public String getGroupHeader() {
+  public String header() {
     return groupHeader;
   }
 
-  public String getGroupFooter() {
+  public String footer() {
     return groupFooter;
   }
 
-  public int getGroupId() {
+  public int id() {
     return groupId;
   }
 

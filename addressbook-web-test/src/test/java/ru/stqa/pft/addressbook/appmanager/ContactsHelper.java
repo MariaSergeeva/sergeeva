@@ -2,10 +2,8 @@ package ru.stqa.pft.addressbook.appmanager;
 
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
@@ -20,35 +18,58 @@ public class ContactsHelper extends HelperBase {
     super(wd);
   }
 
-  public void submitContactCreation() {
-    click(By.xpath("//div[@id='content']/form/input[21]"));
-  }
-
-  public void fillContactForm(ContactData contactData, boolean creation) {
-    type(By.name("firstname"), contactData.getContactFirstName());
-    type(By.name("middlename"), contactData.getContactMiddleName());
-    type(By.name("lastname"), contactData.getContactLastName());
-    type(By.name("address"), contactData.getContactAddress());
-    type(By.name("home"), contactData.getContactHomeTelephone());
-    type(By.name("mobile"), contactData.getContactMobileTelephone());
-    type(By.name("email"), contactData.getContactEmail());
+  public void fillForm(ContactData contactData, boolean creation) {
+    type(By.name("firstname"), contactData.firstName());
+    type(By.name("middlename"), contactData.middleName());
+    type(By.name("lastname"), contactData.lastName());
+    type(By.name("address"), contactData.address());
+    type(By.name("home"), contactData.homeTelephone());
+    type(By.name("mobile"), contactData.mobileTelephone());
+    type(By.name("email"), contactData.email());
     if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getContactGroup());
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.group());
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
   }
 
-  public void initContactCreation() {
+  public void initCreation() {
     click(By.linkText("add new"));
+  }
+
+  public void create(ContactData contact) {
+    new NavigationHelper(wd).GroupPage();
+    if (new GroupsHelper(wd).list().size() == 0) {
+      new GroupsHelper(wd).create(new GroupData("name", null, null));
+    }
+    initCreation();
+    fillForm(contact, true);
+    submitCreation();
+    goToHomePage();
+  }
+
+  public void submitCreation() {
+    click(By.xpath("//div[@id='content']/form/input[21]"));
   }
 
   public void selectContact(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
-  public void deleteSelectedContact() {
-    click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+  public void initModification(int index) {
+    String locator = "//tr[./td[./input[@name='selected[]']]][" + index + "]//img[@title='Edit']";
+    click(By.xpath(locator));
+  }
+
+  public void modify(int index, ContactData contact) {
+    initModification(index);
+    fillForm(contact, false);
+    submitModification();
+    goToHomePage();
+  }
+
+  public void submitModification() {
+    click(By.name("update"));
   }
 
   public void switchAlert() {
@@ -59,41 +80,17 @@ public class ContactsHelper extends HelperBase {
     click(By.linkText("home page"));
   }
 
-  public void initContactModification(int index) {
-    String locator = "//tr[./td[./input[@name='selected[]']]][" + index + "]//img[@title='Edit']";
-    click(By.xpath(locator));
+  public void delete(int index) {
+    selectContact(index);
+    click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+    switchAlert();
   }
 
-  public void submitContactModification() {
-    click(By.name("update"));
-  }
-
-  public boolean isThereAContact() {
-    return isElementPresent(By.name("selected[]"));
-  }
-
-  public void createContact(ContactData contact) {
-    new NavigationHelper(wd).gotoGroupPage();
-    if (!new GroupsHelper(wd).isThereAGroup()) {
-      new GroupsHelper(wd).createGroup(new GroupData("name", null, null));
-    }
-    initContactCreation();
-    fillContactForm(contact, true);
-    submitContactCreation();
-    goToHomePage();
-  }
-  public void modifyContact(int index, ContactData contact) {
-    initContactModification(index);
-    fillContactForm(contact, false);
-    submitContactModification();
-    goToHomePage();
-  }
-
-  public int getContactCount() {
+  public int count() {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<ContactData> getContactList() {
+  public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<ContactData>();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[./td[./input[@name='selected[]']]]"));
     int count = 2;

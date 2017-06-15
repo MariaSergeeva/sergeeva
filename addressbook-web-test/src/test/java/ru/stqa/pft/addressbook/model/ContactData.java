@@ -35,39 +35,39 @@ public class ContactData {
     this.contactGroup = contactGroup;
   }
 
-  public int getContactId() {
+  public int id() {
     return contactId;
   }
 
-  public String getContactMiddleName() {
+  public String middleName() {
     return contactMiddleName;
   }
 
-  public String getContactLastName() {
+  public String lastName() {
     return contactLastName;
   }
 
-  public String getContactAddress() {
+  public String address() {
     return contactAddress;
   }
 
-  public String getContactHomeTelephone() {
+  public String homeTelephone() {
     return contactHomeTelephone;
   }
 
-  public String getContactMobileTelephone() {
+  public String mobileTelephone() {
     return contactMobileTelephone;
   }
 
-  public String getContactEmail() {
+  public String email() {
     return contactEmail;
   }
 
-  public String getContactFirstName() {
+  public String firstName() {
     return contactFirstName;
   }
 
-  public String getContactGroup() {
+  public String group() {
     return contactGroup;
   }
 
