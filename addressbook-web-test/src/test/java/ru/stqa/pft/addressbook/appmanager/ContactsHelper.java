@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -38,14 +39,24 @@ public class ContactsHelper extends HelperBase {
   }
 
   public void create(ContactData contact) {
-    new NavigationHelper(wd).GroupPage();
-    if (new GroupsHelper(wd).list().size() == 0) {
-      new GroupsHelper(wd).create(new GroupData("name", null, null));
-    }
     initCreation();
     fillForm(contact, true);
     submitCreation();
     goToHomePage();
+  }
+
+  public String groupName() {
+    new NavigationHelper(wd).GroupPage();
+    String groupName;
+    if (new GroupsHelper(wd).list().size() == 0) {
+      GroupData group = new GroupData(RandomStringUtils.randomAlphabetic(10), null, null);
+      new GroupsHelper(wd).create(group);
+      groupName = group.name();
+    } else {
+      groupName = new GroupsHelper(wd).list().get(0).name();
+    }
+
+    return groupName;
   }
 
   public void submitCreation() {

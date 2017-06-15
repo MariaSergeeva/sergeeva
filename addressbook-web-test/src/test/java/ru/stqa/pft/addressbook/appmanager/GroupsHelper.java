@@ -82,5 +82,4 @@ public class GroupsHelper extends HelperBase {
     }
     return groups;
   }
-
 }

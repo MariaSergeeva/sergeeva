@@ -14,7 +14,7 @@ public class ContactModificationTests extends TestBase {
   public void ensurePreconditions() {
     app.goTo().ContactsList();
     if (app.Contact().list().size() == 0) {
-      app.Contact().create(new ContactData("firstName", "middleName", "lastName", "address", "home", "mobile", "email", "name"));
+      app.Contact().create(new ContactData("firstName", "middleName", "lastName", "address", "home", "mobile", "email", app.Contact().groupName()));
     }
   }
 
