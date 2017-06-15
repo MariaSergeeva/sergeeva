@@ -24,9 +24,8 @@ public class ContactModificationTests extends TestBase {
   public void testContactModification() {
     List<ContactData> before = app.getContactHelper().getContactList();
     int index = before.size() - 1;
-    String locator = "//a[@href='edit.php?id=" + before.get(index).getContactId() + "']/img";
     ContactData contact = new ContactData(before.get(index).getContactId(), RandomStringUtils.randomAlphabetic(10), null, RandomStringUtils.randomAlphabetic(10), null, null, null, RandomStringUtils.randomAlphabetic(10), null);
-    app.getContactHelper().modifyContact(locator, contact);
+    app.getContactHelper().modifyContact(before.size(), contact);
     List<ContactData> after = app.getContactHelper().getContactList();
     Assert.assertEquals(after.size(), before.size());
 

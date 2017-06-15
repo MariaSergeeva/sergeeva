@@ -59,7 +59,8 @@ public class ContactsHelper extends HelperBase {
     click(By.linkText("home page"));
   }
 
-  public void initContactModification(String locator) {
+  public void initContactModification(int index) {
+    String locator = "//tr[./td[./input[@name='selected[]']]][" + index + "]//img[@title='Edit']";
     click(By.xpath(locator));
   }
 
@@ -81,8 +82,8 @@ public class ContactsHelper extends HelperBase {
     submitContactCreation();
     goToHomePage();
   }
-  public void modifyContact(String locator, ContactData contact) {
-    initContactModification(locator);
+  public void modifyContact(int index, ContactData contact) {
+    initContactModification(index);
     fillContactForm(contact, false);
     submitContactModification();
     goToHomePage();
