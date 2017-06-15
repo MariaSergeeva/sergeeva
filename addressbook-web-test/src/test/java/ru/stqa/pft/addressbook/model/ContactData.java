@@ -1,39 +1,15 @@
 package ru.stqa.pft.addressbook.model;
 
 public class ContactData {
-  private int contactId;
-  private final String contactFirstName;
-  private final String contactMiddleName;
-  private final String contactLastName;
-  private final String contactAddress;
-  private final String contactHomeTelephone;
-  private final String contactMobileTelephone;
-  private final String contactEmail;
-  private final String contactGroup;
-
-  public ContactData(String contactFirstName, String contactMiddleName, String contactLastName, String contactAddress, String contactHomeTelephone, String contactMobileTelephone, String contactEmail, String contactGroup) {
-    this.contactId = 0;
-    this.contactFirstName = contactFirstName;
-    this.contactMiddleName = contactMiddleName;
-    this.contactLastName = contactLastName;
-    this.contactAddress = contactAddress;
-    this.contactHomeTelephone = contactHomeTelephone;
-    this.contactMobileTelephone = contactMobileTelephone;
-    this.contactEmail = contactEmail;
-    this.contactGroup = contactGroup;
-  }
-
-  public ContactData(int contactId, String contactFirstName, String contactMiddleName, String contactLastName, String contactAddress, String contactHomeTelephone, String contactMobileTelephone, String contactEmail, String contactGroup) {
-    this.contactId = contactId;
-    this.contactFirstName = contactFirstName;
-    this.contactMiddleName = contactMiddleName;
-    this.contactLastName = contactLastName;
-    this.contactAddress = contactAddress;
-    this.contactHomeTelephone = contactHomeTelephone;
-    this.contactMobileTelephone = contactMobileTelephone;
-    this.contactEmail = contactEmail;
-    this.contactGroup = contactGroup;
-  }
+  private int contactId = 0;
+  private String contactFirstName;
+  private String contactMiddleName;
+  private String contactLastName;
+  private String contactAddress;
+  private String contactHomeTelephone;
+  private String contactMobileTelephone;
+  private String contactEmail;
+  private String contactGroup;
 
   public int id() {
     return contactId;
@@ -71,8 +47,49 @@ public class ContactData {
     return contactGroup;
   }
 
-  public void setContactId(int contactId) {
+  public ContactData withId(int contactId) {
     this.contactId = contactId;
+    return this;
+  }
+
+  public ContactData withFirstName(String contactFirstName) {
+    this.contactFirstName = contactFirstName;
+    return this;
+  }
+
+  public ContactData withMiddleName(String contactMiddleName) {
+    this.contactMiddleName = contactMiddleName;
+    return this;
+  }
+
+  public ContactData withLastName(String contactLastName) {
+    this.contactLastName = contactLastName;
+    return this;
+  }
+
+  public ContactData withAddress(String contactAddress) {
+    this.contactAddress = contactAddress;
+    return this;
+  }
+
+  public ContactData withHomeTelephone(String contactHomeTelephone) {
+    this.contactHomeTelephone = contactHomeTelephone;
+    return this;
+  }
+
+  public ContactData withMobileTelephone(String contactMobileTelephone) {
+    this.contactMobileTelephone = contactMobileTelephone;
+    return this;
+  }
+
+  public ContactData withEmail(String contactEmail) {
+    this.contactEmail = contactEmail;
+    return this;
+  }
+
+  public ContactData withGroup(String contactGroup) {
+    this.contactGroup = contactGroup;
+    return this;
   }
 
   @Override

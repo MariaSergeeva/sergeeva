@@ -113,7 +113,7 @@ public class ContactsHelper extends HelperBase {
       String email = element.findElement(By.xpath(locator1)).getAttribute("accept");
       String lastName = element.findElement(By.xpath(locator2)).getText();
       String firstName = element.findElement(By.xpath(locator3)).getText();
-      ContactData contact = new ContactData(id, firstName, null, lastName, null, null, null, email, null);
+      ContactData contact = new ContactData().withId(id).withFirstName(firstName).withLastName(lastName).withEmail(email);
       contacts.add(contact);
       count++;
     }

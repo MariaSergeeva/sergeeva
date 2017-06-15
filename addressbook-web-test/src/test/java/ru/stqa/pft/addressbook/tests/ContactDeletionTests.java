@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -13,7 +14,7 @@ public class ContactDeletionTests extends TestBase {
   public void ensurePreconditions() {
     app.goTo().ContactsList();
     if (app.Contact().list().size() == 0) {
-      app.Contact().create(new ContactData("firstName", "middleName", "lastName", "address", "home", "mobile", "email", app.Contact().groupName()));
+      app.Contact().create(new ContactData().withFirstName(RandomStringUtils.randomAlphabetic(10)).withLastName(RandomStringUtils.randomAlphabetic(10)).withGroup(app.Contact().groupName()));
     }
   }
 

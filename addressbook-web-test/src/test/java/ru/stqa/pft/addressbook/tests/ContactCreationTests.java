@@ -14,12 +14,12 @@ public class ContactCreationTests extends TestBase {
   @Test
   public void testContactCreation() {
     List<ContactData> before = app.Contact().list();
-    ContactData contact = new ContactData(RandomStringUtils.randomAlphabetic(10), "middleName", RandomStringUtils.randomAlphabetic(10), "address", "home", "mobile", RandomStringUtils.randomAlphabetic(10), app.Contact().groupName());
+    ContactData contact = new ContactData().withFirstName(RandomStringUtils.randomAlphabetic(10)).withMiddleName(null).withLastName(RandomStringUtils.randomAlphabetic(10)).withAddress(null).withHomeTelephone(null).withMobileTelephone(null).withEmail(RandomStringUtils.randomAlphabetic(10)).withGroup(app.Contact().groupName());
     app.Contact().create(contact);
     List<ContactData> after = app.Contact().list();
     Assert.assertEquals(after.size(), before.size() + 1);
 
-    contact.setContactId(after.stream().max((o1, o2) -> Integer.compare(o1.id(), o2.id())).get().id());
+    contact.withId(after.stream().max((o1, o2) -> Integer.compare(o1.id(), o2.id())).get().id());
     before.add(contact);
 
     Comparator<? super ContactData> byId = ((o1, o2) -> Integer.compare(o1.id(), o2.id()));
