@@ -23,16 +23,14 @@ public class ContactModificationTests extends TestBase {
   @Test
   public void testContactModification() {
     List<ContactData> before = app.getContactHelper().getContactList();
-    String locator = "//a[@href='edit.php?id=" + before.get(before.size() - 1).getContactId() + "']/img";
-    app.getContactHelper().initContactModification(locator);
-    ContactData contact = new ContactData(before.get(before.size() - 1).getContactId(), RandomStringUtils.randomAlphabetic(10), null, RandomStringUtils.randomAlphabetic(10), null, null, null, RandomStringUtils.randomAlphabetic(10), null);
-    app.getContactHelper().fillContactForm(contact, false);
-    app.getContactHelper().submitContactModification();
-    app.getContactHelper().goToHomePage();
+    int index = before.size() - 1;
+    String locator = "//a[@href='edit.php?id=" + before.get(index).getContactId() + "']/img";
+    ContactData contact = new ContactData(before.get(index).getContactId(), RandomStringUtils.randomAlphabetic(10), null, RandomStringUtils.randomAlphabetic(10), null, null, null, RandomStringUtils.randomAlphabetic(10), null);
+    app.getContactHelper().modifyContact(locator, contact);
     List<ContactData> after = app.getContactHelper().getContactList();
     Assert.assertEquals(after.size(), before.size());
 
-    before.remove(before.size() - 1);
+    before.remove(index);
     before.add(contact);
 
     Comparator<? super ContactData> byId = ((o1, o2) -> Integer.compare(o1.getContactId(), o2.getContactId()));
