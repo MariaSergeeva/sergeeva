@@ -48,12 +48,12 @@ public class ContactsHelper extends HelperBase {
   public String groupName() {
     new NavigationHelper(wd).GroupPage();
     String groupName;
-    if (new GroupsHelper(wd).list().size() == 0) {
+    if (new GroupsHelper(wd).all().size() == 0) {
       GroupData group = new GroupData().withName(RandomStringUtils.randomAlphabetic(10));
       new GroupsHelper(wd).create(group);
       groupName = group.name();
     } else {
-      groupName = new GroupsHelper(wd).list().get(0).name();
+      groupName = new GroupsHelper(wd).all().iterator().next().name();
     }
 
     return groupName;
