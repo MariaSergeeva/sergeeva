@@ -14,19 +14,19 @@ public class ContactModificationTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions() {
     app.goTo().ContactsList();
-    if (app.Contact().all().size() == 0) {
-      app.Contact().create(new ContactData().withFirstName(RandomStringUtils.randomAlphabetic(10)).withLastName(RandomStringUtils.randomAlphabetic(10)).withGroup(app.Contact().groupName()));
+    if (app.contact().all().size() == 0) {
+      app.contact().create(new ContactData().withFirstName(RandomStringUtils.randomAlphabetic(10)).withLastName(RandomStringUtils.randomAlphabetic(10)).withGroup(app.contact().groupName()));
     }
   }
 
   @Test
   public void testContactModification() {
-    Contacts before = app.Contact().all();
+    Contacts before = app.contact().all();
     ContactData modifiedContact = before.iterator().next();
     ContactData contact = new ContactData().withId(modifiedContact.id()).withFirstName(RandomStringUtils.randomAlphabetic(10)).withMiddleName(null).withLastName(RandomStringUtils.randomAlphabetic(10)).withAddress(null).withMobileTelephone(null).withHomeTelephone(null).withEmail(RandomStringUtils.randomAlphabetic(10));
-    app.Contact().modify(contact);
-    Contacts after = app.Contact().all();
-    assertEquals(after.size(), before.size());
+    app.contact().modify(contact);
+    assertEquals(app.contact().count(), before.size());
+    Contacts after = app.contact().all();
     MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(modifiedContact).withAdded(contact)));
   }
 }
