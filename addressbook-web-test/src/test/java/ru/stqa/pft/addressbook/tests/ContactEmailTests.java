@@ -18,7 +18,7 @@ public class ContactEmailTests extends TestBase {
     if (app.contact().all().size() == 0) {
       app.contact().create(new ContactData().withFirstName(RandomStringUtils.randomAlphabetic(10)).withLastName(RandomStringUtils.randomAlphabetic(10))
               .withEmail1(RandomStringUtils.randomAlphabetic(10)).withGroup(app.contact().groupName())
-              .withEmail1("").withEmail2("").withEmail3(""));
+              .withEmail1("qqq@www.ee").withEmail2("aaa@sss.dd").withEmail3("zzz@xxx.cc"));
     }
   }
   @Test
@@ -33,11 +33,7 @@ public class ContactEmailTests extends TestBase {
   private String mergeEmails(ContactData contact) {
     return Arrays.asList(contact.email1(), contact.email2(), contact.email3())
             .stream().filter((s) -> !s.equals(""))
-            .map(ContactEmailTests::cleaned)
             .collect(Collectors.joining("\n"));
   }
 
-  public static String cleaned(String email) {
-    return email.replaceAll("\\s", "").replaceAll("[-()]", "");
-  }
 }
