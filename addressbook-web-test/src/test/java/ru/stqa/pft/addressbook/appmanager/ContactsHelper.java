@@ -121,7 +121,8 @@ public class ContactsHelper extends HelperBase {
       String firstName = element.findElement(By.xpath(".//td[3]")).getText();
       String allPhones = element.findElement(By.xpath(".//td[6]")).getText();
       String allEmails = element.findElement(By.xpath(".//td[5]")).getText();
-      ContactData contact = new ContactData().withId(id).withFirstName(firstName).withLastName(lastName).withEmail1(email).withAllPhones(allPhones).withAllEmails(allEmails);
+      String address = element.findElement(By.xpath(".//td[4]")).getText();
+      ContactData contact = new ContactData().withId(id).withFirstName(firstName).withLastName(lastName).withEmail1(email).withAllPhones(allPhones).withAllEmails(allEmails).withAddress(address);
       contactCache.add(contact);
     }
     return new Contacts(contactCache);
@@ -138,6 +139,7 @@ public class ContactsHelper extends HelperBase {
     wd.navigate().back();
     return new ContactData().withFirstName(firstName).withLastName(lastName).withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work);
   }
+
   public ContactData emailsFromEditForm(ContactData contact) {
     initModificationById(contact.id());
     String firstName = wd.findElement(By.name("firstname")).getAttribute("value");
@@ -147,5 +149,14 @@ public class ContactsHelper extends HelperBase {
     String email3 = wd.findElement(By.name("email3")).getAttribute("value");
     wd.navigate().back();
     return new ContactData().withFirstName(firstName).withLastName(lastName).withEmail1(email1).withEmail2(email2).withEmail3(email3);
+  }
+
+  public ContactData addressFromEditForm(ContactData contact) {
+    initModificationById(contact.id());
+    String firstName = wd.findElement(By.name("firstname")).getAttribute("value");
+    String lastName = wd.findElement(By.name("lastname")).getAttribute("value");
+    String address = wd.findElement(By.name("address")).getText();
+    wd.navigate().back();
+    return new ContactData().withFirstName(firstName).withLastName(lastName).withAddress(address);
   }
 }
