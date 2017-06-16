@@ -9,8 +9,11 @@ public class ContactData {
   private String contactHomeTelephone;
   private String contactMobileTelephone;
   private String contactWorkTelephone;
-  private String contactEmail;
-
+  private String contactAllPhones;
+  private String contactEmail1;
+  private String contactEmail2;
+  private String contactEmail3;
+  private String contactAllEmails;
   private String contactGroup;
 
   public int id() {
@@ -29,21 +32,37 @@ public class ContactData {
     return contactAddress;
   }
 
-  public String homeTelephone() {
+  public String homePhone() {
     return contactHomeTelephone;
   }
 
-  public String mobileTelephone() {
+  public String mobilePhone() {
     return contactMobileTelephone;
   }
 
-  public String workTelephone() {
+  public String workPhone() {
 
     return contactWorkTelephone;
   }
 
-  public String email() {
-    return contactEmail;
+  public String allPhones() {
+    return contactAllPhones;
+  }
+
+  public String email1() {
+    return contactEmail1;
+  }
+
+  public String email2() {
+    return contactEmail2;
+  }
+
+  public String email3() {
+    return contactEmail3;
+  }
+
+  public String allEmails() {
+    return contactAllEmails;
   }
 
   public String firstName() {
@@ -94,8 +113,28 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withEmail(String contactEmail) {
-    this.contactEmail = contactEmail;
+  public ContactData withAllPhones(String contactAllPhones) {
+    this.contactAllPhones = contactAllPhones;
+    return this;
+  }
+
+  public ContactData withEmail1(String contactEmail) {
+    this.contactEmail1 = contactEmail;
+    return this;
+  }
+
+  public ContactData withEmail2(String contactEmail) {
+    this.contactEmail2 = contactEmail;
+    return this;
+  }
+
+  public ContactData withEmail3(String contactEmail) {
+    this.contactEmail3 = contactEmail;
+    return this;
+  }
+
+  public ContactData withAllEmails(String contactAllEmails) {
+    this.contactAllEmails = contactAllEmails;
     return this;
   }
 
@@ -110,7 +149,7 @@ public class ContactData {
             "contactId=" + contactId +
             ", contactFirstName='" + contactFirstName + '\'' +
             ", contactLastName='" + contactLastName + '\'' +
-            ", contactEmail='" + contactEmail + '\'' +
+            ", contactEmail='" + contactEmail1 + '\'' +
             '}';
   }
 
@@ -126,7 +165,7 @@ public class ContactData {
       return false;
     if (contactLastName != null ? !contactLastName.equals(that.contactLastName) : that.contactLastName != null)
       return false;
-    return contactEmail != null ? contactEmail.equals(that.contactEmail) : that.contactEmail == null;
+    return contactEmail1 != null ? contactEmail1.equals(that.contactEmail1) : that.contactEmail1 == null;
   }
 
   @Override
@@ -134,7 +173,8 @@ public class ContactData {
     int result = contactId;
     result = 31 * result + (contactFirstName != null ? contactFirstName.hashCode() : 0);
     result = 31 * result + (contactLastName != null ? contactLastName.hashCode() : 0);
-    result = 31 * result + (contactEmail != null ? contactEmail.hashCode() : 0);
+    result = 31 * result + (contactEmail1 != null ? contactEmail1.hashCode() : 0);
     return result;
   }
+
 }
