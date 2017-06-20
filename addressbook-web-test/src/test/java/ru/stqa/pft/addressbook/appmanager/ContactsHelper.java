@@ -114,6 +114,7 @@ public class ContactsHelper extends HelperBase {
       return new Contacts(contactCache);
     }
     contactCache = new Contacts();
+    new NavigationHelper(wd).ContactsList();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[.//input[@name='selected[]']]"));
     for (WebElement element : elements) {
       int id = Integer.parseInt(element.findElement(By.xpath(".//input[@name='selected[]']")).getAttribute("id"));
