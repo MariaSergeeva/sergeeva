@@ -44,7 +44,7 @@ public class GroupDataGenerator {
     } else if (format.equals("xml")) {
       saveAsXML(groups, new File(file));
     } else {
-      System.out.println("Unrecognized format" + format);
+      System.out.println("Unrecognized format " + format);
     }
   }
 
