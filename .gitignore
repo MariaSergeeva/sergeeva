@@ -18,3 +18,5 @@ gradle-app.setting
 Sandbox/\.idea/workspace\.xml
 
 \.idea/libraries/
+
+*.log
