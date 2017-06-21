@@ -17,7 +17,6 @@ public class ContactEmailTests extends TestBase {
     app.goTo().ContactsList();
     if (app.contact().all().size() == 0) {
       app.contact().create(new ContactData().withFirstName(RandomStringUtils.randomAlphabetic(10)).withLastName(RandomStringUtils.randomAlphabetic(10))
-              .withEmail1(RandomStringUtils.randomAlphabetic(10)).withGroup(app.contact().groupName())
               .withEmail1("qqq@www.ee").withEmail2("aaa@sss.dd").withEmail3("zzz@xxx.cc"));
     }
   }

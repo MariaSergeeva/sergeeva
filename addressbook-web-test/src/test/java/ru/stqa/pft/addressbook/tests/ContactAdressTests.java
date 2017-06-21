@@ -17,7 +17,7 @@ public class ContactAdressTests extends TestBase {
     app.goTo().ContactsList();
     if (app.contact().all().size() == 0) {
       app.contact().create(new ContactData().withFirstName(RandomStringUtils.randomAlphabetic(10)).withLastName(RandomStringUtils.randomAlphabetic(10))
-              .withEmail1(RandomStringUtils.randomAlphabetic(10)).withGroup(app.contact().groupName()).withAddress("1\n" + "2\n" + "\n" + "4\n" + "5"));
+              .withAddress("1\n" + "2\n" + "\n" + "4\n" + "5"));
     }
   }
 

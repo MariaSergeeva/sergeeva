@@ -17,7 +17,6 @@ public class ContactPhoneTests extends TestBase {
     app.goTo().ContactsList();
     if (app.contact().all().size() == 0) {
       app.contact().create(new ContactData().withFirstName(RandomStringUtils.randomAlphabetic(10)).withLastName(RandomStringUtils.randomAlphabetic(10))
-              .withEmail1(RandomStringUtils.randomAlphabetic(10)).withGroup(app.contact().groupName())
               .withHomePhone("+7(111)1111111").withMobilePhone("8-222-222-22-22").withWorkPhone("8 333 333 33 33"));
     }
   }
