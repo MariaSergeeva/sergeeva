@@ -14,7 +14,6 @@ import static org.testng.Assert.assertEquals;
 public class GroupDeletionTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions() {
-    app.goTo().GroupPage();
     if (app.db().groups().size() == 0) {
       app.goTo().GroupPage();
       app.group().create(new GroupData().withName(RandomStringUtils.randomAlphabetic(10)));
