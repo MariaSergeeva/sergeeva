@@ -30,7 +30,9 @@ public class ContactsHelper extends HelperBase {
     type(By.name("email"), contactData.email1());
     type(By.name("email2"), contactData.email2());
     type(By.name("email3"), contactData.email3());
-    attach(By.name("photo"), contactData.photo());
+    if (contactData.photo() != null) {
+      attach(By.name("photo"), contactData.photo());
+    }
     if (creation && contactData.group() != null) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.group());
     } else if (creation && contactData.group() == null) {
@@ -55,7 +57,7 @@ public class ContactsHelper extends HelperBase {
   public String groupName() {
     new NavigationHelper(wd).GroupPage();
     String groupName;
-    if (new GroupsHelper(wd).all().size() == 0) {
+    if (new DbHelper().groups().size() == 0) {
       GroupData group = new GroupData().withName(RandomStringUtils.randomAlphabetic(10));
       new GroupsHelper(wd).create(group);
       groupName = group.name();

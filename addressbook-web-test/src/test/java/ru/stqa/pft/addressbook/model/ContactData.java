@@ -130,7 +130,11 @@ public class ContactData {
   }
 
   public File photo() {
-    return new File(contactPhoto);
+    try {
+      return new File(contactPhoto);
+    } catch (NullPointerException ex) {
+      return null;
+    }
   }
 
   public ContactData withId(int contactId) {
