@@ -15,7 +15,7 @@ public class ContactAdressTests extends TestBase {
   @BeforeMethod
   public void ensurePreconditions() {
     app.goTo().ContactsList();
-    if (app.contact().all().size() == 0) {
+    if (app.db().contacts().size() == 0) {
       app.contact().create(new ContactData().withFirstName(RandomStringUtils.randomAlphabetic(10)).withLastName(RandomStringUtils.randomAlphabetic(10))
               .withAddress("1\n" + "2\n" + "\n" + "4\n" + "5"));
     }
