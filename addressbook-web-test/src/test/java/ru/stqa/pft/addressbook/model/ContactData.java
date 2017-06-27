@@ -4,9 +4,13 @@ import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
+import ru.stqa.pft.addressbook.appmanager.DbHelper;
+import ru.stqa.pft.addressbook.appmanager.NavigationHelper;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
@@ -65,12 +69,13 @@ public class ContactData {
   @Transient
   private String contactAllEmails;
 
-  @Transient
-  private String contactGroup;
-
   @Column(name = "photo", nullable = true)
   @Type(type = "text")
   private String contactPhoto;
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
 
   public int id() {
     return contactId;
@@ -123,10 +128,6 @@ public class ContactData {
 
   public String firstName() {
     return contactFirstName;
-  }
-
-  public String group() {
-    return contactGroup;
   }
 
   public File photo() {
@@ -202,14 +203,13 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withGroup(String contactGroup) {
-    this.contactGroup = contactGroup;
-    return this;
-  }
-
   public ContactData withPhoto(File contactPhoto) {
     this.contactPhoto = contactPhoto.getPath();
     return this;
+  }
+
+  public Groups getGroups() {
+    return new Groups(groups);
   }
 
   @Override
@@ -246,4 +246,8 @@ public class ContactData {
     return result;
   }
 
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
+  }
 }

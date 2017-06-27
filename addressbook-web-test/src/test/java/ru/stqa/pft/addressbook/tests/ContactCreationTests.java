@@ -3,11 +3,14 @@ package ru.stqa.pft.addressbook.tests;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -24,13 +27,12 @@ public class ContactCreationTests extends TestBase {
   @DataProvider
   public Iterator<Object[]> validContactsFromCSV() throws IOException {
     List<Object[]> list = new ArrayList<Object[]>();
-    File photo = new File("src/test/resources/pikachu.png");
-    String group = app.contact().groupName();
+    String group = app.contact().getGroupForContactCreation().iterator().next().name();
     try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/contacts.csv"))) {
       String line = reader.readLine();
       while (line != null) {
         String[] split = line.split(";");
-        list.add(new Object[]{new ContactData().withFirstName(split[0]).withLastName(split[1]).withAddress(split[2]).withEmail1(split[3]).withHomePhone(split[4]).withGroup(group).withPhoto(photo)});
+        // list.add(new Object[]{new ContactData().withFirstName(split[0]).withLastName(split[1]).withAddress(split[2]).withEmail1(split[3]).withHomePhone(split[4]).withGroup(group).withPhoto(photo)});
         line = reader.readLine();
       }
       return list.iterator();
@@ -69,9 +71,19 @@ public class ContactCreationTests extends TestBase {
     }
   }
 
+  @BeforeMethod
+  public void ensurePreconditions() {
+
+  }
+
+
   @Test(dataProvider = "validContactsFromJson")
   public void testContactCreation(ContactData contact) {
+    File photo = new File("src/test/resources/pikachu.png");
     Contacts before = app.db().contacts();
+    Groups groups = app.contact().getGroupForContactCreation();
+    contact = contact.withPhoto(photo).inGroup(groups.iterator().next());
+    app.goTo().ContactsList();
     app.contact().create(contact);
     assertEquals(app.contact().count(), (before.size() + 1));
     Contacts after = app.db().contacts();

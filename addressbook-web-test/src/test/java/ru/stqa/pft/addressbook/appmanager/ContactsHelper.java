@@ -10,6 +10,7 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.List;
 
@@ -33,13 +34,17 @@ public class ContactsHelper extends HelperBase {
     if (contactData.photo() != null) {
       attach(By.name("photo"), contactData.photo());
     }
-    if (creation && contactData.group() != null) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.group());
-    } else if (creation && contactData.group() == null) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText("[none]");
-    } else {
-      Assert.assertFalse(isElementPresent(By.name("new_group")));
+    if (contactData.getGroups().size() > 0) {
+      Assert.assertTrue(contactData.getGroups().size() ==1);
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().name());
     }
+     if (creation && contactData.getGroups().size() != 0) {
+       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().name());
+     } else if (creation && contactData.getGroups().size() == 0) {
+       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText("[none]");
+     } else {
+        Assert.assertFalse(isElementPresent(By.name("new_group")));
+     }
   }
 
   public void initCreation() {
@@ -54,18 +59,16 @@ public class ContactsHelper extends HelperBase {
     goToHomePage();
   }
 
-  public String groupName() {
-    new NavigationHelper(wd).GroupPage();
-    String groupName;
-    if (new DbHelper().groups().size() == 0) {
-      GroupData group = new GroupData().withName(RandomStringUtils.randomAlphabetic(10));
-      new GroupsHelper(wd).create(group);
-      groupName = group.name();
-    } else {
-      groupName = new GroupsHelper(wd).all().iterator().next().name();
-    }
 
-    return groupName;
+  public Groups getGroupForContactCreation() {
+    Groups groups = new DbHelper().groups();
+    if (groups.size() == 0) {
+      GroupData group = new GroupData().withName(RandomStringUtils.randomAlphabetic(10));
+      new NavigationHelper(wd).GroupPage();
+      new  GroupsHelper(wd).create(group);
+      groups = new DbHelper().groups();
+    }
+    return groups;
   }
 
   public void submitCreation() {
