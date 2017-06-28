@@ -13,6 +13,7 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ContactsHelper extends HelperBase {
 
@@ -188,5 +189,22 @@ public class ContactsHelper extends HelperBase {
     selectById(contactId);
     selectGroupForAddingContact(groupId);
     submitAdding();
+  }
+
+  public void removingContactInGroup(ContactData contact, GroupData group) {
+    new NavigationHelper(wd).ContactsList();
+    selectGroupForRemovingContact(group);
+    selectById(contact.id());
+    submitRemoving();
+  }
+
+  private void submitRemoving() {
+    wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    click(By.xpath("//form[@name='MainForm']//input[@name='remove']"));
+  }
+
+  private void selectGroupForRemovingContact(GroupData group) {
+    click(By.xpath(".//form[@id='right']/select[@name = 'group']"));
+    click(By.xpath(String.format(".//form[@id='right']//option[@value = '%s']", group.id())));
   }
 }
