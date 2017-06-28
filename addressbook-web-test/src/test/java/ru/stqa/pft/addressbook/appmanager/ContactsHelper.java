@@ -168,4 +168,25 @@ public class ContactsHelper extends HelperBase {
     wd.navigate().back();
     return new ContactData().withFirstName(firstName).withLastName(lastName).withAddress(address);
   }
+
+  public void submitAdding() {
+    click(By.xpath("//input[@value = 'Add to']"));
+  }
+
+  public void selectGroupForAddingContact(int groupId) {
+    click(By.xpath("//select[@name = 'to_group']"));
+    click(By.xpath(String.format("//select[@name = 'to_group']/option[@value = '%s']", groupId)));
+  }
+  public void createEmptyGroup() {
+    GroupData group = new GroupData().withName(RandomStringUtils.randomAlphabetic(10));
+    new NavigationHelper(wd).GroupPage();
+    new GroupsHelper(wd).create(group);
+  }
+
+  public void addingContactInGroup(int contactId, int groupId) {
+    new NavigationHelper(wd).ContactsList();
+    selectById(contactId);
+    selectGroupForAddingContact(groupId);
+    submitAdding();
+  }
 }

@@ -219,6 +219,7 @@ public class ContactData {
             ", contactFirstName='" + contactFirstName + '\'' +
             ", contactLastName='" + contactLastName + '\'' +
             ", contactEmail1='" + contactEmail1 + '\'' +
+            ", groups=" + groups +
             '}';
   }
 
@@ -234,7 +235,8 @@ public class ContactData {
       return false;
     if (contactLastName != null ? !contactLastName.equals(that.contactLastName) : that.contactLastName != null)
       return false;
-    return contactEmail1 != null ? contactEmail1.equals(that.contactEmail1) : that.contactEmail1 == null;
+    if (contactEmail1 != null ? !contactEmail1.equals(that.contactEmail1) : that.contactEmail1 != null) return false;
+    return groups != null ? groups.equals(that.groups) : that.groups == null;
   }
 
   @Override
@@ -243,6 +245,7 @@ public class ContactData {
     result = 31 * result + (contactFirstName != null ? contactFirstName.hashCode() : 0);
     result = 31 * result + (contactLastName != null ? contactLastName.hashCode() : 0);
     result = 31 * result + (contactEmail1 != null ? contactEmail1.hashCode() : 0);
+    result = 31 * result + (groups != null ? groups.hashCode() : 0);
     return result;
   }
 
