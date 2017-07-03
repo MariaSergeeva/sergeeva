@@ -11,24 +11,77 @@ import static org.junit.Assert.assertThat;
 
 public class AddingContactWithGroupInGroupTest extends TestBase {
 
+  int contactId;
+  int groupId;
   GroupData testGroup = new GroupData();
-  ContactData contact = new ContactData();
-
 
   @BeforeMethod
   public void ensurePreconditions() {
-    Groups groups = app.db().groups();
-    testGroup = getTestGroup(groups);
-    groups = app.db().groups();
-    GroupData secondGroup = getSecondGroup(groups);
-    contact = getContact(secondGroup);
+    Contacts contacts = app.db().contacts();
+    int groupSize = getGroupsSize(app.db().groups());
+    Groups allGroups = app.db().groups();
+    ContactData testContact;
+    if (contacts.size() != 0) {
+      try {
+        testContact = contacts.stream().filter((c) -> (c.getGroups().size() != 0 && c.getGroups().size() < groupSize)).iterator().next();
+      } catch (Exception ex) {
+        testContact = null;
+      }
+      if (testContact == null) {
+        int contactId;
+        try {
+          contactId = contacts.stream().filter((c) -> (c.getGroups().size() == 0)).iterator().next().id();
+        } catch (Exception ex) {
+          contactId = 0;
+        }
+        if (contactId != 0) {
+          int groupId = allGroups.iterator().next().id();
+          app.contact().addingContactInGroup(contactId, groupId);
+          contacts = app.db().contacts();
+          testContact = contacts.stream().filter((c) -> (c.getGroups().size() != 0 && c.getGroups().size() < groupSize)).iterator().next();
+        }
+      }
+      if (testContact == null) {
+        ContactData newContact;
+        try {
+          newContact = contacts.stream().filter((c) -> (c.getGroups().size() == groupSize)).iterator().next();
+        } catch (Exception ex) {
+          newContact = null;
+        }
+        if (newContact != null) {
+          int newContactId = newContact.id();
+          GroupData group = allGroups.iterator().next();
+          app.contact().removingContactFromGroup(newContact, group);
+          contacts = app.db().contacts();
+          testContact = contacts.stream().filter((c) -> (c.id() == newContactId)).iterator().next();
+        } else testContact = null;
+      }
+    } else {
+      testContact = getContact(allGroups.iterator().next());
+    }
+
+    contactId = testContact.id();
+    Groups groupsWithContact;
+    try {
+      groupsWithContact = contacts.stream().filter((c) -> (c.id() == contactId)).iterator().next().getGroups();
+    } catch (java.util.NoSuchElementException ex) {
+      groupsWithContact = null;
+    }
+
+    Groups groupsWithoutContact = allGroups;
+    if (groupsWithContact != null) {
+      groupsWithoutContact.removeAll(groupsWithContact);
+    }
+    groupId = groupsWithoutContact.iterator().next().id();
+    testGroup = allGroups.stream().filter((g) -> (g.id() == groupId)).iterator().next();
+
   }
 
   @Test
   public void testAddingContactWithGroupInGroup() {
-    ContactData before = app.db().contacts().stream().filter((c) -> (c.id() == contact.id())).iterator().next();
-    app.contact().addingContactInGroup(contact.id(), testGroup.id());
-    ContactData after = app.db().contacts().stream().filter((c) -> (c.id() == contact.id())).iterator().next();
+    ContactData before = app.db().contacts().stream().filter((c) -> (c.id() == contactId)).iterator().next();
+    app.contact().addingContactInGroup(contactId, groupId);
+    ContactData after = app.db().contacts().stream().filter((c) -> (c.id() == contactId)).iterator().next();
     System.out.println("before: " + before);
     System.out.println("after: " + after);
     assertThat(after, equalTo(before.inGroup(testGroup)));
@@ -44,17 +97,17 @@ public class AddingContactWithGroupInGroupTest extends TestBase {
     return groups.stream().filter((g) -> (g.id() != testGroup.id())).iterator().next();
   }
 
-  private GroupData getTestGroup(Groups groups) {
+  private int getGroupsSize(Groups groups) {
+    int groupSize;
     if (groups.size() < 2) {
       for (int i = 0; i < (2 - groups.size()); i++) {
         app.contact().createEmptyGroup();
-        groups = app.db().groups();
       }
-      testGroup = groups.stream().filter((g) -> (g.getContacts().size() == 0)).iterator().next();
+      groupSize = app.db().groups().size();
     } else {
-      testGroup = groups.iterator().next();
+      groupSize = groups.size();
     }
-    return testGroup;
+    return groupSize;
   }
 }
 

@@ -186,12 +186,18 @@ public class ContactsHelper extends HelperBase {
 
   public void addingContactInGroup(int contactId, int groupId) {
     new NavigationHelper(wd).ContactsList();
+    viewAllContacts();
     selectById(contactId);
     selectGroupForAddingContact(groupId);
     submitAdding();
   }
 
-  public void removingContactInGroup(ContactData contact, GroupData group) {
+  private void viewAllContacts() {
+    click(By.xpath(".//form[@id='right']/select[@name = 'group']"));
+    click(By.xpath(".//form[@id='right']//option[@value = '']"));
+  }
+
+  public void removingContactFromGroup(ContactData contact, GroupData group) {
     new NavigationHelper(wd).ContactsList();
     selectGroupForRemovingContact(group);
     selectById(contact.id());
@@ -199,7 +205,6 @@ public class ContactsHelper extends HelperBase {
   }
 
   private void submitRemoving() {
-    wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     click(By.xpath("//form[@name='MainForm']//input[@name='remove']"));
   }
 
