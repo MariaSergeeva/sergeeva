@@ -3,24 +3,27 @@ package ru.stqa.pft.mantis.model;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
-@javax.persistence.Entity
+
+@Entity
 @javax.persistence.Table(name = "mantis_user_table")
 public class UserData {
   @Id
   @Column(name = "id")
-  private int userId = 0;
+  private int userId;
 
   @Column(name = "username")
-  @Type(type = "text")
+  @Type(type = "string")
   private String user;
 
   @Column(name = "email")
-  @Type(type = "text")
+  @Type(type = "string")
   private String email;
 
-  @javax.persistence.Transient
+  @Transient
   private String userPassword;
 
   public int getUserId() {
