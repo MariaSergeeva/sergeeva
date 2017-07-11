@@ -35,7 +35,7 @@ public class HttpSession {
     postPassword.setEntity(new UrlEncodedFormEntity(params));
     CloseableHttpResponse response = httpclient.execute(postPassword);
     String body = getTextFrom(response);
-    return body.contains(String.format("<span class=\"user-info\">%s</span>", username));
+    return body.contains(String.format("<a href=\"/mantisbt-2.5.1/account_page.php\">%s</a>", username));
   }
 
   private String getTextFrom(CloseableHttpResponse response) throws IOException {

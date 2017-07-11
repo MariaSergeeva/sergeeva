@@ -31,24 +31,15 @@ public class RegistrationHelper extends HelperBase {
     click(By.xpath(".//input[@value = 'Зарегистрироваться']"));
   }
 
-  public void finish(String confirmationLink, String password) {
+  public void setPassword(String confirmationLink, String password) {
     wd.get(confirmationLink);
     type(By.name("password"), password);
     type(By.name("password_confirm"), password);
     click(By.xpath(".//button[@type='submit']"));
   }
 
-  public void createUser(UserData user) throws IOException {
-    app.registration().start(user.getUser(), user.getEmail());
-    List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
-    String confirmationLink = findLinc(mailMessages, user.getEmail());
-    app.registration().finish(confirmationLink, user.getPassword());
-    assertTrue(app.newSession().login(user.getUser(), user.getPassword()));
-    System.out.println(mailMessages);
-  }
 
-  public String findLinc(List<MailMessage> mailMessages, String email) {
-    MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findAny().get();
+  public String findLinc(MailMessage mailMessage) {
     VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
     return regex.getText(mailMessage.text);
   }
