@@ -1,16 +1,15 @@
+package ru.stqa.pft.mantis.appmanager;
 
-        package ru.stqa.pft.mantis.appmanager;
+import org.apache.commons.net.telnet.TelnetClient;
+import ru.stqa.pft.mantis.model.MailMessage;
 
-        import org.apache.commons.net.telnet.TelnetClient;
-        import ru.stqa.pft.mantis.model.MailMessage;
-
-        import javax.mail.*;
-        import java.io.IOException;
-        import java.io.InputStream;
-        import java.io.PrintStream;
-        import java.util.Arrays;
-        import java.util.List;
-        import java.util.stream.Collectors;
+import javax.mail.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class JamesHelper {
 

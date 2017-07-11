@@ -18,6 +18,8 @@ public class MailHelper {
   public MailHelper(ApplicationManager app) {
     this.app = app;
     wiser = new Wiser();
+    wiser.setPort(2500); // Default is 25
+    //wiser.start();
   }
 
   public List<MailMessage> waitForMail(int count, long timeout) {

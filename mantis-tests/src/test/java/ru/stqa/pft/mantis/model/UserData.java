@@ -26,7 +26,7 @@ public class UserData {
   @Transient
   private String userPassword;
 
-  public int getUserId() {
+  public int getId() {
     return userId;
   }
 
@@ -38,7 +38,7 @@ public class UserData {
     return email;
   }
 
-  public String getUserPassword() {
+  public String getPassword() {
     return userPassword;
   }
 
@@ -57,7 +57,7 @@ public class UserData {
     return this;
   }
 
-  public UserData setUserPassword(String userPassword) {
+  public UserData setPassword(String userPassword) {
     this.userPassword = userPassword;
     return this;
   }
