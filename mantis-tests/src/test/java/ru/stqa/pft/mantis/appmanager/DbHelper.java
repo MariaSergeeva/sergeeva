@@ -24,7 +24,7 @@ public class DbHelper {
   public Users users() {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
-    List<UserData> userListFromDB = session.createQuery("from mantis_user_table").list();
+    List<UserData> userListFromDB = session.createQuery("from UserData").list();
     session.getTransaction().commit();
     session.close();
     return new Users(userListFromDB);
